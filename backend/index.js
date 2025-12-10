@@ -3,11 +3,12 @@ const mysql = require("mysql2");
 const cors = require("cors");
 
 const app = express();
+require("dotenv").config();
 
-//Fixed CORS configuration (removed extra space and trailing slash)
+//Fixed CORS configuration
 app.use(cors({
-  origin: "http://localhost:5173",  // Fixed: removed space and trailing slash
-  methods: ["GET", "POST", "DELETE", "PUT"],  // Added PUT for future use
+  origin: process.env.CORS_ORIGIN,
+  methods: ["GET", "POST", "DELETE", "PUT"],
   credentials: true
 }));
 
@@ -15,12 +16,13 @@ app.use(express.json());
 
 // MySQL connection setup
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",           // change if your MySQL user is different
-  password: "sarthika@230305",           // put your MySQL password here
-  database: "binged",     // name of the database you created
-  port: 3305,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
 });
+
 
 db.connect(err => {
   if (err) {
