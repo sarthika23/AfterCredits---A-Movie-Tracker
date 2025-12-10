@@ -33,7 +33,8 @@ const App = () => {
   });
 
   // API Base URL
-  const API_BASE = "http://localhost:3001";
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+
 
   // API Functions
   const fetchMovies = async () => {
